@@ -131,9 +131,9 @@ If you don't want to do anything here, you should return `false`.
 
 #### `prepareUpdate(instance, type, oldProps, newProps, rootContainer, hostContext)`
 
-React calls this method so that you can compare the previous and the next props, and decide whether you need to update the underlying instance or not. If you don't need to update it, return `null`. If you need to update it, you can return an arbitrary object representing the changes that need to happen. Then in `commitUpdate` you would need to apply those changes to the instance.
+React calls this method so that you can compare the previous and the next props, and decide whether you need to update the underlying instance or not. If you don't need to update it, return `null`. If you need to update it, you can return an arbitrary object representing the changes that need to happen. Then in `commitUpdate` (in mutation mode) or `cloneInstance` (in persistent mode) you would need to apply those changes to the instance.
 
-This method happens **in the render phase**. It should only *calculate* the update — but not apply it! For example, the DOM renderer returns an array that looks like `[prop1, value1, prop2, value2, ...]` for all props that have actually changed. And only in `commitUpdate` it applies those changes. You should calculate as much as you can in `prepareUpdate` so that `commitUpdate` can be very fast and straightforward.
+This method happens **in the render phase**. It should only *calculate* the update — but not apply it! For example, the DOM renderer returns an array that looks like `[prop1, value1, prop2, value2, ...]` for all props that have actually changed. And only in `commitUpdate` it applies those changes. In mutation mode, you should calculate as much as you can in `prepareUpdate` so that `commitUpdate` can be very fast and straightforward.
 
 See the meaning of `rootContainer` and `hostContext` in the `createInstance` documentation.
 
